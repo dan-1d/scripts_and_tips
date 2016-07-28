@@ -1,0 +1,11 @@
+# Issues:
+#  Install pygtk -- this is required for gnuradio-companion
+conda install -c mw pygtk2
+#
+
+# install to a different directory
+#??  -DINSTALL_PREFIX=/opt/gnuradio
+
+# give the right anaconda python path to cmake:
+mkdir build && cd build
+cmake .. -DPYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")  -DPYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
