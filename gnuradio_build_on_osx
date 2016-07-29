@@ -1,7 +1,7 @@
 # Issues:
 #  Install pygtk -- this is required for gnuradio-companion
-conda install -c mw pygtk2
-#
+# conda install -c mw pygtk2
+#  * NOTE: This didn't seem to work due to mis-matched glibc
 
 # install to a different directory
 #??  -DINSTALL_PREFIX=/opt/gnuradio
@@ -9,3 +9,14 @@ conda install -c mw pygtk2
 # give the right anaconda python path to cmake:
 mkdir build && cd build
 cmake .. -DPYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")  -DPYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR')+\"/libpython2.7.dylib\")")
+
+#Disable some features
+-DENABLE_DOXYGEN=OFF
+
+
+
+Scratch:
+- try to remove glib in anaconda and use system glib
+- reinstalled pygtk from brew, not anaconda: need to "link" these in the python path:
+   - mkdir -p /Users/gebhardt/.local/lib/python2.7/site-packages
+   - echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> /Users/gebhardt/.local/lib/python2.7/site-packages/homebrew.pth
